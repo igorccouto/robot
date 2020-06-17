@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "5.4.3"
+jupyterlab = "2.1.4"
+mock = "4.0.2"
+pylint = "2.5.3"
+
+[packages]
+selenium = "3.141.0"
+robot = {editable = true, path = "."}
+
+[requires]
+python_version = "3.8"
