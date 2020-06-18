@@ -18,3 +18,27 @@ The use of *pipenv* instead of *pip* is encouraged on this project.
     ├── tests              <- Test code of the project.
     ├── Pipfile            <- Information about dependencies of the project.
     └── Pipfile.lock       <- To create deterministic builds.
+
+## Before usage
+
+1. Download and install [Python 3.8](https://www.python.org/downloads/release/python-383) for your system.
+2. Install *pipenv*:
+    - Windows:
+        ```
+        $ pip install pipenv
+        ```
+    - On Linux, you can use apt too:
+        ```
+        $ sudo apt install pipenv
+        ```
+
+3. Install the dependencies of the project.
+    - In production:
+        ```
+        $ pipenv install
+        ```
+    - In development:
+        ```
+        $ pipenv install --dev
+        ```
+4. Your robot is ready!
