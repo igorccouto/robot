@@ -3,7 +3,7 @@ import settings
 from selenium import webdriver
 
 
-def create_Options(**kwargs):
+def create_options(**kwargs):
     """Creates an Options object to customize the browser. All settings are
     passed by kwargs (dictionary). Accepted arguments.
         + user-agent : str

@@ -24,6 +24,6 @@ def test_accepts_executable_path_arg(mock_Chrome):
 @mock.patch('selenium.webdriver.Chrome')
 def test_accepts_options_arg(mock_Chrome):
     executable_path = os.path.join(settings.DRIVER_DIR, 'chromedriver.exe')
-    options = chrome.create_Options()
+    options = chrome.create_options()
     chrome.create_driver(options=options)
     mock_Chrome.assert_called_with(executable_path=executable_path, options=options)
