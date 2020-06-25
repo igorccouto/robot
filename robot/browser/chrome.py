@@ -1,3 +1,5 @@
+import os
+import settings
 from selenium import webdriver
 
 
@@ -48,3 +50,16 @@ def create_Options(**kwargs):
             opt.add_extension(ext)
 
     return opt
+
+def create_driver(**kwargs):
+    """Creates a Chrome Web
+
+    Returns:
+        webdriver.Chrome: The Chrome webdriver.
+    """
+    try:
+        driver = webdriver.Chrome(executable_path=os.path.join(settings.DRIVER_DIR, 'chromedriver.exe'))
+    except:
+        return None
+
+    return driver

@@ -1,9 +1,11 @@
 import os
 import mock
+import pytest
 import settings
 from selenium import webdriver
 from robot.browser import chrome
 from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import WebDriverException
 
 
 BROWSER_SETTINGS = {'user-agent': 'SOME USER AGENT',
@@ -92,3 +94,10 @@ def test_create_Options_add_extensions():
     browser_settings = {'extensions': [block_img, webrtc_control]}
     opt = chrome.create_Options(**browser_settings)
     assert len(opt.extensions) == 2
+
+@mock.patch('selenium.webdriver.Chrome', side_effect=WebDriverException)
+def test_create_driver_avoids_WebDriverException(mock_Chrome):
+    try:
+        chrome.create_driver()
+    except WebDriverException:
+        pytest.fail('WebDriverException not avoided by function.')
