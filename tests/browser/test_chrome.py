@@ -101,3 +101,11 @@ def test_create_driver_avoids_WebDriverException(mock_Chrome):
         chrome.create_driver()
     except WebDriverException:
         pytest.fail('WebDriverException not avoided by function.')
+
+@mock.patch('selenium.webdriver.Chrome', side_effect=WebDriverException)
+def test_create_driver_uses_executable_path_arg(mock_Chrome):
+    executable_path = os.path.join(settings.DRIVER_DIR, 'chromedriver.exe')
+    chrome.create_driver()
+    mock_Chrome.assert_called_with(executable_path=executable_path)
+    chrome.create_driver(executable_path='ANY PATH')
+    mock_Chrome.assert_called_with(executable_path='ANY PATH')

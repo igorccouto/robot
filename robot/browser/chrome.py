@@ -57,8 +57,14 @@ def create_driver(**kwargs):
     Returns:
         webdriver.Chrome: The Chrome webdriver.
     """
+    # Executable path
+    if kwargs.get('executable_path'):
+        executable_path = kwargs.get('executable_path')
+    else:
+        executable_path = os.path.join(settings.DRIVER_DIR, 'chromedriver.exe')
+
     try:
-        driver = webdriver.Chrome(executable_path=os.path.join(settings.DRIVER_DIR, 'chromedriver.exe'))
+        driver = webdriver.Chrome(executable_path=executable_path)
     except:
         return None
 
