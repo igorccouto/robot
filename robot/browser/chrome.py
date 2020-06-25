@@ -64,7 +64,10 @@ def create_driver(**kwargs):
         executable_path = os.path.join(settings.DRIVER_DIR, 'chromedriver.exe')
 
     try:
-        driver = webdriver.Chrome(executable_path=executable_path)
+        if kwargs.get('options'):
+            driver = webdriver.Chrome(executable_path=executable_path, options=kwargs.get('options'))
+        else:
+            driver = webdriver.Chrome(executable_path=executable_path)
     except:
         return None
 
