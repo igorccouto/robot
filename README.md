@@ -5,8 +5,6 @@ On this project, you will find a robot to perform several actions in the browser
 ## Project Organization
 ------------
 
-The use of *pipenv* instead of *pip* is encouraged on this project.
-
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
     ├── data               <- Folder to keep files (.CSV) consumed by the robot.
@@ -16,29 +14,14 @@ The use of *pipenv* instead of *pip* is encouraged on this project.
     ├── setup.py           <- makes project pipenv installable (pipenv install -e .) so robot can be imported.
     ├── robot              <- Source code for use in this project.
     ├── tests              <- Test code of the project.
-    ├── Pipfile            <- Information about dependencies of the project.
-    └── Pipfile.lock       <- To create deterministic builds.
+    └── requirements.txt   <- Information about dependencies of the project.
 
 ## Before usage
 
 1. Download and install [Python 3.8](https://www.python.org/downloads/release/python-383) for your system.
-2. Install *pipenv*:
+2. Install dependencies:
     - Windows:
         ```
-        $ pip install pipenv
+        $ pip install -r requirements.txt
         ```
-    - On Linux, you can use apt too:
-        ```
-        $ sudo apt install pipenv
-        ```
-
-3. Install the dependencies of the project.
-    - In production:
-        ```
-        $ pipenv install
-        ```
-    - In development:
-        ```
-        $ pipenv install --dev
-        ```
-4. Your robot is ready!
+3. Your robot is ready!
