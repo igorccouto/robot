@@ -70,7 +70,7 @@ def create_driver(**kwargs):
         else:
             driver = webdriver.Chrome(executable_path=executable_path)
     except WebDriverException as e:
-        print(e.msg)
+        print('WebDriverException: %s' % e.msg)
         return None
 
     return driver
