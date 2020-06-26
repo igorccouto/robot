@@ -93,3 +93,4 @@ target/
 
 # Virtual Environment
 .venv
+*.cfg
