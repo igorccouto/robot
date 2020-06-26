@@ -1,0 +1,7 @@
+-e .
+pytest
+jupyterlab
+mock
+pylint
+ipykernel
+selenium

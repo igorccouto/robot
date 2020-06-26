@@ -90,3 +90,6 @@ target/
 
 # Executables
 *.exe
+
+# Virtual Environment
+.venv
