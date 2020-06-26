@@ -1,6 +1,7 @@
 import os
 import settings
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
 
 
 def create_options(**kwargs):
@@ -68,7 +69,8 @@ def create_driver(**kwargs):
             driver = webdriver.Chrome(executable_path=executable_path, options=kwargs.get('options'))
         else:
             driver = webdriver.Chrome(executable_path=executable_path)
-    except:
+    except WebDriverException as e:
+        print(e.msg)
         return None
 
     return driver
