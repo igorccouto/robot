@@ -58,7 +58,3 @@ CUSTOMERS = [{'add_to_wish_list': '',
               'specific_asins': '',
               'user_agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 '
                             '(KHTML, like Gecko) Chrome/57.0.2987.133 Safa'}]
-
-PROXIES =[{'proxy': '163.172.111.11:1231',
-           'proxy': '163.172.111.11:1232',
-           'proxy': '163.172.111.11:1233'}]
