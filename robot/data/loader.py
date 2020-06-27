@@ -1,22 +1,11 @@
 import csv
+from typing import List
 
 
-def read_csv(file, delimiter=';', quotechar='"'):
-    """Reads an CSV file and saves in a list of dictionaries. Avoid to use outside
-    this module.
+def read_csv(file: str, delimiter: str=';', quotechar: str='"') -> List[str]:
+    """Reads a CSV file and saves in a list of dictionaries."""
 
-    Arguments:
-        file {str} -- The CSV file path to read
-
-    Keyword Arguments:
-        delimiter {str} -- The delimiter of the CSV file (default: {';'})
-        quotechar {str} -- The quote character of the CSV file (default: {'"'})
-
-    Returns:
-        list -- The list of dictionaries
-    """
     data = []
-
     with open(file) as f:
         reader = csv.DictReader(f, delimiter=delimiter, quotechar=quotechar)
         for r in reader:
