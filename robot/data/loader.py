@@ -1,5 +1,6 @@
 import csv
 from typing import List
+from multiprocessing import Manager
 
 
 def read_csv(file: str, delimiter: str=';', quotechar: str='"') -> List[str]:
@@ -12,3 +13,15 @@ def read_csv(file: str, delimiter: str=';', quotechar: str='"') -> List[str]:
             data.append(dict(r))
 
     return data
+
+def load_customers(customers: List[dict]) -> Manager:
+    "Loads selected customers from a list of dicts to a multiprocessing.Manager"
+    m = Manager()
+    m_list = m.list()
+
+    for c in customers:
+        # If selected appends to manager
+        if c.get('select'):
+            m_list.append(m.dict(c))
+
+    return m_list
