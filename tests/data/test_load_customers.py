@@ -26,4 +26,3 @@ def test_selects_option(mock_read_csv):
     data = loader.read_csv(file='some CSV file')
     manager = loader.load_customers(customers=data)
     assert len(data) != len(manager), 'data and manager couldn\'t have same lenght.'
-    loader.load_customers()
