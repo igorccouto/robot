@@ -4,22 +4,19 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 
 
-def create_options(**kwargs):
+def create_options(**kwargs) -> webdriver.ChromeOptions:
     """Creates an Options object to customize the browser. All settings are
-    passed by kwargs (dictionary). Accepted arguments.
-        + user-agent : str
-        + window-size : str
-        + --lang : str
-        + user-data-dir : str
-        + --proxy-server : str
-        + --log-level : int
-        + --headless : bool
-        + disable-automation-extension : bool
-        + password-manager : bool
-        + extensions : list
-
-    Returns:
-        Options -- An object to customize a browser.
+    passed by kwargs (dictionary). Accepted arguments:\n
+    + user-agent : str\n
+    + window-size : str\n
+    + --lang : str\n
+    + user-data-dir : str\n
+    + --proxy-server : str\n
+    + --log-level : int\n
+    + --headless : bool\n
+    + disable-automation-extension : bool\n
+    + password-manager : bool\n
+    + extensions : list\n
     """
     opt = webdriver.ChromeOptions()
     # Adding arguments
@@ -52,11 +49,10 @@ def create_options(**kwargs):
 
     return opt
 
-def create_driver(**kwargs):
-    """Creates a Chrome Web
-
-    Returns:
-        webdriver.Chrome: The Chrome webdriver.
+def create_driver(**kwargs) -> webdriver.Chrome:
+    """Creates a webdriver to Chrome. Accepted arguments:\n
+    + executable_path : str\n
+    + options : Options\n
     """
     # Executable path
     if kwargs.get('executable_path'):
@@ -64,11 +60,13 @@ def create_driver(**kwargs):
     else:
         executable_path = os.path.join(settings.DRIVER_DIR, 'chromedriver.exe')
 
+    if kwargs.get('options'):
+        options = kwargs.get('options')
+    else:
+        options = create_options()
+
     try:
-        if kwargs.get('options'):
-            driver = webdriver.Chrome(executable_path=executable_path, options=kwargs.get('options'))
-        else:
-            driver = webdriver.Chrome(executable_path=executable_path)
+        driver = webdriver.Chrome(executable_path=executable_path, options=options)
     except WebDriverException as e:
         print('WebDriverException: %s' % e.msg)
         return None
