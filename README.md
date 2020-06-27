@@ -11,7 +11,7 @@ On this project, you will find a robot to perform several actions in the browser
     ├── driver             <- Webdriver executable will be placed here.
     ├── notebooks          <- Jupyter notebooks.
     ├── settings.py        <- Settings module.
-    ├── setup.py           <- makes project pipenv installable (pipenv install -e .) so robot can be imported.
+    ├── setup.py           <- makes project installable (pip install -e .) so robot can be imported.
     ├── robot              <- Source code for use in this project.
     ├── tests              <- Test code of the project.
     └── requirements.txt   <- Information about dependencies of the project.
