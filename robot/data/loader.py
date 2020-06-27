@@ -25,3 +25,18 @@ def load_customers(customers: List[dict]) -> Manager:
             m_list.append(m.dict(c))
 
     return m_list
+
+def load_proxies(proxies: List[dict]) -> Manager:
+    "Loads proxies to a multiprocessing.Manager"
+    m = Manager()
+    m_list = m.list()
+
+    for p in proxies:
+        p.update({'available': m.Event()})
+        p.update({'change_ip': m.Event()})
+        p.update({'counter': 0})
+        p.update({'info': {}})
+        p.update({'refresh': 15})
+        m_list.append(m.dict(p))
+
+    return m_list
