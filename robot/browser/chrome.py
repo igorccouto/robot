@@ -1,6 +1,7 @@
 import os
 import settings
 from selenium import webdriver
+from robot.browser.webdrivererror import WebDriverError
 from selenium.common.exceptions import WebDriverException
 
 
@@ -68,7 +69,6 @@ def create_driver(**kwargs) -> webdriver.Chrome:
     try:
         driver = webdriver.Chrome(executable_path=executable_path, options=options)
     except WebDriverException as e:
-        print('WebDriverException: %s' % e.msg)
-        return None
+        raise WebDriverError(error=WebDriverException, message=e.msg)
 
     return driver
