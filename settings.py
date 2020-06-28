@@ -6,3 +6,4 @@ DRIVER_DIR = os.path.join(ROOT_DIR, 'driver')
 
 # Settings variables
 PROXY_REFRESH_TIME = 15
+HIGH_PROXY_REFRESH_TIME = 60
