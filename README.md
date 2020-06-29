@@ -3,6 +3,7 @@
 On this project, you will find a robot to perform several actions in the browser using [Selenium WebDriver](https://www.selenium.dev/).
 
 ## Project Organization
+
 ------------
 
     ├── LICENSE
@@ -21,7 +22,9 @@ On this project, you will find a robot to perform several actions in the browser
 1. Download and install [Python 3.8](https://www.python.org/downloads/release/python-383) for your system.
 2. Install dependencies:
     - Windows:
+
+        ```console
+        pip install -r requirements.txt
         ```
-        $ pip install -r requirements.txt
-        ```
+
 3. Your robot is ready!
