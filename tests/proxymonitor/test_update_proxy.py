@@ -160,13 +160,3 @@ def test_sets_last_change_properly():
         assert proxy.get('last_change') > last_change, 'last_change not updated with failed connection.'
         mock_get_connection_info.return_value = mock_data.WINTER_SPRINGS_FL_CONN
         proxytools.update_proxy(proxy)
-
-def test_accepts_delay_refresh():
-    proxy = create_sample_proxy()
-    with mock.patch('robot.proxymonitor.proxytools.get_connection_info') as mock_get_connection_info:
-        mock_get_connection_info.return_value = mock_data.WILLIS_TEXAS_CONN
-        with mock.patch('robot.proxymonitor.proxytools.time.sleep') as mock_sleep:
-            proxytools.update_proxy(proxy)
-            mock_sleep.assert_not_called()
-            proxytools.update_proxy(proxy, delay=True)
-            mock_sleep.assert_called_once_with(proxy.get('refresh_time'))

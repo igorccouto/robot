@@ -48,7 +48,7 @@ def get_connection_info(proxy_server: str='', timeout: int=None) -> dict:
 
     return response
 
-def update_proxy(proxy, **kwargs) -> Manager:
+def update_proxy(proxy: dict) -> Manager:
     """Updates a proxy object based on connnection data.
 
     Arguments:
@@ -92,7 +92,3 @@ def update_proxy(proxy, **kwargs) -> Manager:
     if new_IP:
         releases = proxy.get('releases')
         proxy.update({'releases': releases+1})
-
-    # If delay is True, put thread to sleep
-    if kwargs.get('delay'):
-        time.sleep(proxy.get('refresh_time'))
