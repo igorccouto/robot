@@ -18,6 +18,7 @@ def test_calls_init(Thread_init_mock):
 @mock.patch('robot.proxymonitor.proxytools.update_proxy')
 def test_calls_update_proxy(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
+    proxy.update({'refresh_time': 0.01})
     t = ProxyThread(proxy=proxy)
     t.start()
     t.terminate()
@@ -27,6 +28,7 @@ def test_calls_update_proxy(mock_update_proxy):
 def test_updates_proxy_arg(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
     t = ProxyThread(proxy=proxy)
+    proxy.update({'refresh_time': 0.01})
     t.start()
     t.terminate()
     mock_update_proxy.assert_called_with(proxy)
@@ -47,6 +49,7 @@ def test_not_set_terminated_as_default(mock_update_proxy):
 @mock.patch('robot.proxymonitor.proxytools.update_proxy')
 def test_not_set_terminated_at_start(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
+    proxy.update({'refresh_time': 0.01})
     t = ProxyThread(proxy=proxy)
     t.start()
     assert isinstance(t.terminated, Event), 'terminated attr isn\'t an event.'
@@ -56,6 +59,7 @@ def test_not_set_terminated_at_start(mock_update_proxy):
 @mock.patch('robot.proxymonitor.proxytools.update_proxy')
 def test_sets_terminated_at_terminate(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
+    proxy.update({'refresh_time': 0.01})
     t = ProxyThread(proxy=proxy)
     t.start()
     t.terminate()
@@ -64,8 +68,29 @@ def test_sets_terminated_at_terminate(mock_update_proxy):
 @mock.patch('robot.proxymonitor.proxytools.update_proxy')
 def test_kills_thread_at_terminate(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
+    proxy.update({'refresh_time': 0.01})
     t = ProxyThread(proxy=proxy)
     t.start()
     t.terminate()
     time.sleep(0.1)
     assert not t.is_alive(), 'thread is alive.'
+
+@mock.patch('time.sleep')
+@mock.patch('robot.proxymonitor.proxytools.update_proxy')
+def test_ProxyThread_calls_sleep(mock_update_proxy, mock_sleep):
+    proxy = mock_data.create_sample_proxy()
+    proxy.update({'refresh_time': 0.01})
+    t = ProxyThread(proxy=proxy)
+    t.start()
+    t.terminate()
+    mock_sleep.assert_called()
+
+@mock.patch('time.sleep')
+@mock.patch('robot.proxymonitor.proxytools.update_proxy')
+def test_ProxyThread_calls_sleep_with_proxy_refresh_time(mock_update_proxy, mock_sleep):
+    proxy = mock_data.create_sample_proxy()
+    proxy.update({'refresh_time': 0.01})
+    t = ProxyThread(proxy=proxy)
+    t.start()
+    t.terminate()
+    mock_sleep.assert_called_with(proxy.get('refresh_time'))
