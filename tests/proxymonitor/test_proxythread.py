@@ -1,5 +1,6 @@
 import mock
-from threading import Thread
+import time
+from threading import Thread, Event
 from tests.proxymonitor import mock_data
 from robot.proxymonitor.proxythread import ProxyThread
 
@@ -19,7 +20,7 @@ def test_calls_update_proxy(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
     t = ProxyThread(proxy=proxy)
     t.start()
-    t.join()
+    t.terminate()
     mock_update_proxy.assert_called()
 
 @mock.patch('robot.proxymonitor.proxytools.update_proxy')
@@ -27,13 +28,44 @@ def test_updates_proxy_arg(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
     t = ProxyThread(proxy=proxy)
     t.start()
-    t.join()
+    t.terminate()
     mock_update_proxy.assert_called_with(proxy)
 
 @mock.patch('robot.proxymonitor.proxytools.update_proxy')
-def test_(mock_update_proxy):
+def test_has_terminate(mock_update_proxy):
+    proxy = mock_data.create_sample_proxy()
+    t = ProxyThread(proxy=proxy)
+    getattr(t, 'terminate'), 'ProxyThread doesn\'t have interrupt method.'
+
+@mock.patch('robot.proxymonitor.proxytools.update_proxy')
+def test_not_set_terminated_as_default(mock_update_proxy):
+    proxy = mock_data.create_sample_proxy()
+    t = ProxyThread(proxy=proxy)
+    assert isinstance(t.terminated, Event), 'terminated attr isn\'t an event.'
+    assert not t.terminated.is_set(), 'terminated event not clear by default.'
+
+@mock.patch('robot.proxymonitor.proxytools.update_proxy')
+def test_not_set_terminated_at_start(mock_update_proxy):
     proxy = mock_data.create_sample_proxy()
     t = ProxyThread(proxy=proxy)
     t.start()
-    t.is_alive()
-    t.join()
+    assert isinstance(t.terminated, Event), 'terminated attr isn\'t an event.'
+    assert not t.terminated.is_set(), 'terminated event not clear by default.'
+    t.terminate()
+
+@mock.patch('robot.proxymonitor.proxytools.update_proxy')
+def test_sets_terminated_at_terminate(mock_update_proxy):
+    proxy = mock_data.create_sample_proxy()
+    t = ProxyThread(proxy=proxy)
+    t.start()
+    t.terminate()
+    assert t.terminated.is_set(), 'terminated not set after terminate be called.'
+
+@mock.patch('robot.proxymonitor.proxytools.update_proxy')
+def test_kills_thread_at_terminate(mock_update_proxy):
+    proxy = mock_data.create_sample_proxy()
+    t = ProxyThread(proxy=proxy)
+    t.start()
+    t.terminate()
+    time.sleep(0.1)
+    assert not t.is_alive(), 'thread is alive.'
