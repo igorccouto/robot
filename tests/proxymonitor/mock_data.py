@@ -1,3 +1,8 @@
+import mock
+from robot.data import loader
+from robot.proxymonitor import proxydata
+
+
 PROXIES = [{'proxy': '163.172.111.11:1231'},
            {'proxy': '163.172.111.11:1232'},
            {'proxy': '163.172.111.11:1233'},
@@ -53,3 +58,11 @@ NON_USA_CONN = {'status': 'success',
 
 FAILED_CONN = {'status': 'not success',
                'latency': None}
+
+def create_sample_proxy():
+    with mock.patch('robot.data.loader.read_csv') as mock_read_csv:
+        mock_read_csv.return_value = PROXIES
+        data = loader.read_csv('ANY CSV')
+    proxy = proxydata.load_proxies(proxies=data)[0]
+
+    return proxy
